@@ -9,7 +9,7 @@ This project provides an all-in-one HTML document with embedded JavaScript/Css/I
 
 Here is a link to the BitcoinTalk.org forum topic discussing this project: https://bitcointalk.org/index.php?topic=5154264
 
-The Diskcoin PID Generator is based on the open source bitaddress.org repository. Private Keys are generated client-side. For better security, download a local copy and run on an offline machine.
+The Diskcoin PID Generator is based on the open source [bitaddress.org repository](https://github.com/pointbiz/bitaddress.org). Private Keys are generated client-side. For better security, download a local copy and run on an offline machine.
 
 The bitaddress.org software is available under The MIT License (MIT) Copyright (c) 2011-2013 bitaddress.org
 
