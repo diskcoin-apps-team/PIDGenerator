@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Diskcion PID Generator</title>
+</head>
+<style>
+    * { margin: 0; padding: 0;}
+    html, body {
+        height: 100%;
+        font-size: 14px;
+        line-height: 1.9;
+    }
+
+    h1  { 
+        text-align: center;
+    }
+
+    button { 
+        margin: 0 auto;
+        display: block;
+        width: 150px;
+        padding: 15px 0;
+        font-size: 15px;
+        background-color: #409EFF;
+        color: #fff;
+        border-radius: 4px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+    }
+    button:active { opacity: .7;}
+    .loading {
+        height: 100%;
+        width: 100%;
+    }
+
+    .loading img {
+        position: absolute;
+        top: 50%;
+        left: 46%;
+    }
+    #keyImg, #valueImg { height: 150px; width: 150px; margin-top: 30px; }
+    #keyImg img, #valueImg img { height: 150px; width: 150px; }
+    #keyBox { height: 100%; text-align: left; }
+    #keyBox > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height:  50%;
+    }
+    #keyBox > div span {
+        font-size: 16px;
+        color: #0000ff;
+    }
+    #keyBox > div input {
+        display: block;
+        font-size: 16px;
+        color: #333;
+        padding: 10px;
+        font-weight: bold;
+        width: 700px;
+        border: 1px solid  #ccc;
+        border-radius: 5px;
+    }
+
+    #keyBox p {
+        color: #666;
+        line-height: 2.5;
+        font-size: 16px;
+    }
+</style>
+<body>
+    <script src="./converters.js"></script>
+    <script src="./math.js"></script>
+    <script src="./math2.js"></script>
+    <!-- <script src="./encryption.js"></script> -->
+    <script src="./passphrasegenerator.js"></script>
+    <script src="./jssh256.js"></script>
+    <script src="./curve25519.js"></script>
+    <script src="./main.js"></script>
+    <script src="./qrcode.js"></script>
+    <div class="loading">
+        <img src="./5-130H2191324-50.gif" />
+    </div>
+    <div id="keyBox">
+        <h1 class="title">Diskcion PID Generator</h1>
+        <button id="createNew">Generator New</button>
+        <div id="key">
+            <p id="keyText">
+                <span>Passphrase:&nbsp;&nbsp;</span>
+                <input type="text" disabled >
+            </p>
+            <div id="keyImg"></div>
+        </div>
+        <div id="value">
+            <p id="valueText">
+                <span>PlottingID:&nbsp;&nbsp;</span>
+                <input type="text" disabled >
+            </p>
+            <div id="valueImg"></div>
+        </div>
+    </div>
+    <div>
+        
+    </div>
+    <script>
+        var keyImg =  new QRCode('keyImg');
+        var valueImg = new QRCode('valueImg')
+        function create() {
+            let arr = [];
+            while (arr.length === 0) {
+                let pwd = PassPhraseGenerator.generatePassPhrase();
+                let pk = getAccountId(pwd);
+                if (pk < 0x00ffffffffffffff) {
+                    arr.push({
+                        value: pk,
+                        key: pwd
+                    });
+                }
+            }
+            
+            if (arr.length > 0) {
+                document.querySelector('.loading').style.display = 'none';
+                keyImg.makeCode(arr[0].key);
+                document.querySelector('#keyText').querySelector('input').value = arr[0].key;
+                valueImg.makeCode(arr[0].value);
+                document.querySelector('#valueText').querySelector('input').value = arr[0].value;
+            }
+        }
+
+        create();
+
+        document.getElementById('createNew').addEventListener('click', create);
+    </script>
+
+    <script>
+    
+    </script>
+</body>
+</html>
