@@ -1,0 +1,387 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: PingFang SC,Microsoft YaHei,sans-serif;
+    color: #333;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+
+body {
+    background-image: url('./../pidImg/bgImg.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+button {
+    border: none;
+    outline: none;
+    -webkit-transition: -webkit-box-shadow .2s;
+    transition: -webkit-box-shadow .2s;
+    -o-transition: box-shadow .2s;
+    transition: box-shadow .2s;
+    transition: box-shadow .2s, -webkit-box-shadow .2s;
+    cursor: pointer;
+}
+
+button:active {
+    opacity: .7;
+}
+
+button:hover {
+    -webkit-box-shadow: 0 10px 14px 0 rgba(0,0,0,0.1);
+            box-shadow: 0 10px 14px 0 rgba(0,0,0,0.1)
+} 
+
+.toast {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+    background-color: rgba(0,0,0,.7);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    max-width: 250px;
+    display: none;
+    color: rgba(255,255,255,.9);
+}
+
+.mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.75);
+    text-align: center;
+    display: none;
+}
+
+.mask::after {
+    content: '';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.mask .alert {
+    display: inline-block;
+    background:rgba(255,255,255,1);
+    border-radius:10px;
+    padding: 30px 55px;
+    position: relative;
+}
+
+.mask .alert .close {
+    position: absolute;
+    background-image: url('./../pidImg/close.png');
+    background-repeat: no-repeat;
+    background-size: 50% 50%;
+    background-position: center;
+    height: 44px;
+    width: 44px;
+    cursor: pointer;
+    right: 5px;
+    top: 15px;
+}
+
+.mask .alert .stateIcon img{
+    width:50px;
+    height:50px;
+}
+
+.mask .alert .stateText span{
+    color: #4A4A4A;
+    font-size: 18px;
+    font-weight:400;
+    color:rgba(74,74,74,1);
+    line-height:25px;
+    margin-top: 21px;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+.mask .alert .stateTips p {
+    color: #9B9B9B;
+    font-size: 14px;
+    line-height:20px;
+    font-weight: 400;
+    max-width: 290px;
+}
+
+.mask .alert .stateBtn button {
+    background-color: #1D9D3A;
+    font-size: 16px;
+    color: #fff;
+    padding: 0 48px;
+    line-height: 46px;
+    border-radius: 400px;
+    margin-top: 25px;
+    cursor: pointer;
+}
+div.content {
+    height: 100%; 
+    display: -webkit-box; 
+    display: -webkit-flex; 
+    display: -ms-flexbox; 
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+}
+div.content img.logo{
+    width: 190px;
+    height: 42px;
+    margin-bottom: 30px;
+}
+
+div.content h1 {
+    font-size:42px;
+    font-weight:600;
+    color:rgba(255,255,255,1);
+    line-height:60px;
+    margin-bottom: 25px;
+}
+
+div.content .btnGroup {position: relative; margin-top: 30px;}
+
+
+
+/* index */
+div.content .btnGroup button{
+    display: inline-block;
+    line-height: 46px;
+    border-radius: 200px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+ 
+div.content .btnGroup .btnHollow {
+    border: 1px solid #fff;
+    margin-right: 25px;
+    background-color: rgba(0,0,0,0);
+    color: #fff;
+}
+
+div.content .btnGroup .btnSolid {
+    background-color: rgba(255,236,3,1);
+    color: #1D9D3A;
+}
+
+
+
+
+.tooltip {
+    width:383px;
+    height:75px;
+    padding: 10px;
+    background:rgba(0,0,0,1);
+    opacity:0.8;
+    font-size:12px;
+    font-weight:600;
+    color:rgba(255,255,255,1);
+    line-height:17px;
+    border-radius: 4px;
+    position: absolute;
+    /*button height + triangle height + margin*/
+    top: 65px; 
+    left: -27%;
+    display: none;
+}
+
+.tooltip::after {
+    content: '';
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom:  10px solid #000;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+}
+
+
+/* check pid */
+.check_id {
+    display: none;
+    margin-top: -15px;
+}
+
+.check_id .tips {
+    font-size: 15px;
+    font-weight: 400;
+    line-height:25px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 65px;
+}
+.inputBox {
+    width:600px;
+    height:62px;
+    background:rgba(255,255,255,1);
+    border-radius:42px;
+    padding: 0 10px 0 20px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.inputBox input {
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    color: #333;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    border-radius: 42px;
+}
+.inputBox input::-webkit-input-placeholder {
+    color: #ccc;
+}
+.inputBox input:-ms-input-placeholder {
+    color: #ccc;
+}
+.inputBox input::-ms-input-placeholder {
+    color: #ccc;
+}
+.inputBox input::placeholder {
+    color: #ccc;
+}
+.inputBox img {
+    cursor: pointer;
+}
+
+.check_id .create {
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    line-height: 60px;
+    margin-top: 32px;
+    color: #fff;
+    text-decoration: underline;
+}
+
+
+
+
+/* create PID */
+.create_pid {
+    display: none;
+}
+
+.create_pid .item {
+    background-color: #fff;
+    color: #333333;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    width: 890px;
+}
+
+.create_pid .item .title {
+    height: 65px;
+    line-height: 65px;
+    text-align: center;
+    font-size: 18px;
+    border-bottom: 1px solid #F1F1F1;
+}
+
+.create_pid .item .pidContent {
+    padding: 25px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.create_pid .item .pidContent .info {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    margin-right: 25px;
+    background-color: #F5F5F5;
+    font-size: 16px;
+    height: 128px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px;
+    position: relative;
+}
+.create_pid .item .pidContent .copy {
+    width:82px;
+    height:36px;
+    background:rgba(29,157,58,1);
+    border-radius:23px;
+    color: #fff;
+    font-size:14px;
+    font-weight: 400;
+    line-height: 36px;
+    text-align: center;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+.create_pid .item .pidContent .qrcode {
+    width:128px;
+    min-width:128px;
+    height:128px;
+    min-height:128px;
+    display: inline-block;
+    background-color: #f1f1f1;
+}
+
+.create_pid .item .pidContent .qrcode img {
+    width:128px;
+    min-width:128px;
+    height:128px;
+    min-height:128px;
+}
+
+.create_pid .resetPID {
+    color: #1D9D3A;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 46px;
+    padding: 0 20px;
+    background-color: #FFEC03;
+    border-radius: 22px;
+    margin: 0 auto;
+    margin-bottom: 52px;
+    display: block;
+}
+
+.github {
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    bottom: 25px;
+    right: 50%;
+}

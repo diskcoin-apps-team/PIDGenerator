@@ -68,46 +68,7 @@ var PassPhraseGenerator = {
 
             return this.passPhrase;
 		} else {
-			// $container.find(".progress-bar").css("width", "0%");
-			// $container.find(".progess-bar span").text("0% seeded");
-			// $container.find(".step_1").show();
-
-			// Math.seedrandom();
-
-			// $("html").on("mousemove", function(e) {
-			// 	var seed = [e.pageX, e.pageY, +new Date];
-			// 	PassPhraseGenerator.push(seed);
-
-			// 	var percentage = PassPhraseGenerator.percentage() + "%";
-
-			// 	$container.find(".progress-bar").css("width", percentage);
-			// 	$container.find(".progress-bar span").text(percentage + " seeded");
-
-			// 	if (PassPhraseGenerator.isDone()) {
-			// 		$container.find(".progress-bar").css("width", "100%");
-
-			// 		$("html").unbind("mousemove");
-
-			// 		$container.find(".step_1").hide();
-			// 		$container.find(".step_2").show();
-			// 		$("#account_phrase_generator_start").hide();
-			// 		$("#account_phrase_generator_stop").show();
-			// 		$("#custom_passphrase_link").show();
-
-			// 		var words = [];
-
-			// 		for (var i = 0; i < 12; i++) {
-			// 			var number = Math.floor((Math.random() * PassPhraseGenerator.wordCount) + 1);
-			// 			words.push(PassPhraseGenerator.words[number]);
-			// 		}
-
-			// 		Math.seedrandom();
-
-			// 		PassPhraseGenerator.passPhrase = words.join(" ");
-
-			// 		return PassPhraseGenerator.passPhrase;
-			// 	}
-			// });
+			return;
 		}
 	},
 

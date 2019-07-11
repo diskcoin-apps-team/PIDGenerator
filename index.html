@@ -1,144 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Diskcion PID Generator</title>
+    <title>Diskcoin PID Generator</title>
+    <link href="./css/main.css" rel="stylesheet" type="text/css">
+	<link rel="shortcuticon" href="/favicon.ico" />
 </head>
-<style>
-    * { margin: 0; padding: 0;}
-    html, body {
-        height: 100%;
-        font-size: 14px;
-        line-height: 1.9;
-    }
 
-    h1  { 
-        text-align: center;
-    }
-
-    button { 
-        margin: 0 auto;
-        display: block;
-        width: 150px;
-        padding: 15px 0;
-        font-size: 15px;
-        background-color: #409EFF;
-        color: #fff;
-        border-radius: 4px;
-        outline: none;
-        border: none;
-        cursor: pointer;
-    }
-    button:active { opacity: .7;}
-    .loading {
-        height: 100%;
-        width: 100%;
-    }
-
-    .loading img {
-        position: absolute;
-        top: 50%;
-        left: 46%;
-    }
-    #keyImg, #valueImg { height: 150px; width: 150px; margin-top: 30px; }
-    #keyImg img, #valueImg img { height: 150px; width: 150px; }
-    #keyBox { height: 100%; text-align: left; }
-    #keyBox > div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height:  50%;
-    }
-    #keyBox > div span {
-        font-size: 16px;
-        color: #0000ff;
-    }
-    #keyBox > div input {
-        display: block;
-        font-size: 16px;
-        color: #333;
-        padding: 10px;
-        font-weight: bold;
-        width: 700px;
-        border: 1px solid  #ccc;
-        border-radius: 5px;
-    }
-
-    #keyBox p {
-        color: #666;
-        line-height: 2.5;
-        font-size: 16px;
-    }
-</style>
 <body>
-    <script src="./converters.js"></script>
-    <script src="./math.js"></script>
-    <script src="./math2.js"></script>
+    <input type="text" id="copy_content" style="position: absolute; top: 0; opacity: 0;z-index: -11">
+    <div class="content">
+        <a href="/">
+            <img src="./pidImg/logo.png" alt="Diskcoin PID Generator" class="logo" >
+        </a>
+        <h1>Diskcoin PID Generator</h1>
+        <!-- index -->
+        <div class="btnGroup page">
+            <button class="btnHollow checkPid">Already have PID?</button>
+            <div class="tooltip">After our mainnet online, if your PID is not applicable to our settings, you will not
+                be able to multi-mine (mine other PoC coins while mine DISC). So you have to check your PID at first.
+            </div>
+            <button class="btnSolid createPID">NEW？Generate your PID</button>
+        </div>
+        <!-- check_id -->
+        <div class="check_id page">
+            <p class="tips">If your PID is not applicable, you will not be able to multi-mine (mine other<br/>PoC coins while mine DISC). So you have to check your PID at first.</p>
+            <div class="inputBox">
+                <input type="text" placeholder="Your PID">
+                <img src="./pidImg/btn.png" id="checkId" />
+            </div>
+            <p class="create createPID">DON’T HAVE AN PID? CLICK HERE TO CREATE ONE!</p>
+        </div>
+
+
+        <!-- create PID -->
+        <div class="create_pid page">
+            <button class="resetPID">Generate new PID</button>
+            <div class="item">
+                <div class="title">Passphrase</div>
+                <div class="pidContent">
+                    <div class="info passphrase">
+                        <p></p>
+                        <button class="copy">copy</button>
+                    </div>
+                    <div class="qrcode" id="passphrase"></div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="title">PlottingID </div>
+                <div class="pidContent">
+                    <div class="info plottingID">
+                        <p></p>
+                        <button class="copy">copy</button>
+                    </div>
+                    <div class="qrcode" id="plottingID"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="toast"></div>
+
+    <div class="mask">
+        <div class="alert">
+            <div class="close"></div>
+            <div class="stateIcon">
+                <img src="./pidImg/fail.png" class="fail" />
+                <img src="./pidImg/success.png" class="success" />
+            </div>
+            <div class="stateText">
+                <span class="fail">Sorry!</span>
+                <span class="success">Congratulations!</span>
+            </div>
+            <div class="stateTips">
+                <p class="fail">
+                    Your PID is not applicable, so you need to use this tool to generate new PID and then plot if you
+                    want to mine DISC.
+                </p>
+                <p class="success">
+                    Your PID is applicable, and you could use your plotted files
+                </p>
+            </div>
+            <div class="stateBtn">
+                <button class="fail">Generate new PID</button>
+                <button class="success">OK</button>
+            </div>
+        </div>
+
+    </div>
+    <a href="https://github.com/diskcoin-apps-team/PIDGenerator" target="_blank"><img src="./pidImg/github.png" class="github"/></a> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/converters.js"></script>
+    <script src="./js/math.js"></script>
+    <script src="./js/math2.js"></script>
     <!-- <script src="./encryption.js"></script> -->
-    <script src="./passphrasegenerator.js"></script>
-    <script src="./jssh256.js"></script>
-    <script src="./curve25519.js"></script>
-    <script src="./main.js"></script>
-    <script src="./qrcode.js"></script>
-    <div class="loading">
-        <img src="./5-130H2191324-50.gif" />
-    </div>
-    <div id="keyBox">
-        <h1 class="title">Diskcion PID Generator</h1>
-        <button id="createNew">Generator New</button>
-        <div id="key">
-            <p id="keyText">
-                <span>Passphrase:&nbsp;&nbsp;</span>
-                <input type="text" disabled >
-            </p>
-            <div id="keyImg"></div>
-        </div>
-        <div id="value">
-            <p id="valueText">
-                <span>PlottingID:&nbsp;&nbsp;</span>
-                <input type="text" disabled >
-            </p>
-            <div id="valueImg"></div>
-        </div>
-    </div>
-    <div>
-        
-    </div>
-    <script>
-        var keyImg =  new QRCode('keyImg');
-        var valueImg = new QRCode('valueImg')
-        function create() {
-            let arr = [];
-            while (arr.length === 0) {
-                let pwd = PassPhraseGenerator.generatePassPhrase();
-                let pk = getAccountId(pwd);
-                if (pk < 0x00ffffffffffffff) {
-                    arr.push({
-                        value: pk,
-                        key: pwd
-                    });
-                }
-            }
-            
-            if (arr.length > 0) {
-                document.querySelector('.loading').style.display = 'none';
-                keyImg.makeCode(arr[0].key);
-                document.querySelector('#keyText').querySelector('input').value = arr[0].key;
-                valueImg.makeCode(arr[0].value);
-                document.querySelector('#valueText').querySelector('input').value = arr[0].value;
-            }
-        }
-
-        create();
-
-        document.getElementById('createNew').addEventListener('click', create);
-    </script>
-
-    <script>
-    
-    </script>
+    <script src="./js/passphrasegenerator.js"></script>
+    <script src="./js/jssh256.js"></script>
+    <script src="./js/curve25519.js"></script>
+    <script src="./js/qrcode.js"></script>
+    <script src="./js/main.min.js"></script>
 </body>
+
 </html>
