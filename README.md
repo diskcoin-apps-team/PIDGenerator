@@ -1,4 +1,5 @@
-Diskcoin PID Generator
+## Diskcoin PID Generator
+
 JavaScript Client-Side Diskcoin PID generator
 
 Now Diskcoin plotter ID and their corresponding private key can be conveniently generated in a web browser.
